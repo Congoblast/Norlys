@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import type { Windmill } from "../../../services/windmill-types";
 import { useWindmillContext } from "../../../providers/WindmillProvider";
+import { WINDMILL_COLUMNS } from "../WindmillColumns";
 
 interface Props {
   brand: string;
@@ -37,18 +38,12 @@ const WindmillItemManagement: React.FC<Props> = (props) => {
     }));
   };
 
-  const fields: Array<{ key: keyof Windmill; label: string; type: "text" | "number" }> = [
-    { key: "brand", label: "Brand name", type: "text" },
-    { key: "model", label: "Model name", type: "text" },
-    { key: "installedCapacityMw", label: "Installed Capacity (MW)", type: "number" },
-  ];
-
   return (
     <>
       <Root>
         <Title>Windmill Item Management for model: {model}</Title>
         <ManagementContainer>
-          {fields.map((field) => (
+          {WINDMILL_COLUMNS.map((field) => (
             <Row key={field.key}>
               <Label>{field.label}</Label>
               <StyledInput
@@ -61,13 +56,14 @@ const WindmillItemManagement: React.FC<Props> = (props) => {
             </Row>
           ))}
         </ManagementContainer>
-
-        <Button color="#076f40" onClick={() => handleUpdateWindmill(id, formData)}>
-          Update Windmill
-        </Button>
-        <Button color="#ba0c2f" onClick={handleDelete}>
-          DELETE {brand} {model} ID: {id}
-        </Button>
+        <ButtonContainer>
+          <Button color="#076f40" onClick={() => handleUpdateWindmill(id, formData)}>
+            Update Windmill
+          </Button>
+          <Button width="25%" color="#ba0c2f" onClick={handleDelete}>
+            DELETE {brand} {model} ID: {id}
+          </Button>
+        </ButtonContainer>
       </Root>
     </>
   );
@@ -86,7 +82,7 @@ const Root = styled.div`
   margin: 16px;
   background-color: white;
   border-radius: 6px;
-  width: 50%;
+  width: 75%;
 `;
 
 const Title = styled.h2`
@@ -110,7 +106,7 @@ const ManagementContainer = styled.div`
   gap: 16px;
 `;
 
-const Button = styled.button<{ color: string }>`
+const Button = styled.button<{ color: string; width?: string }>`
   font-size: 1.2rem;
   padding: 16px 24px;
   background-color: ${({ color }) => color};
@@ -118,11 +114,19 @@ const Button = styled.button<{ color: string }>`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  width: ${({ width }) => width || "100%"};
 
   &:hover {
     background-color: ${({ color }) => color};
     opacity: 0.9;
   }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
 `;
 
 const Row = styled.div`

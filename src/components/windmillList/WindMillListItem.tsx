@@ -41,9 +41,4 @@ const Cell = styled.div`
   text-align: left;
 `;
 
-const Button = styled.button`
-  padding: 8px 12px;
-  background-color: #f0f0f0;
-`;
-
 export default WindMillListItem;

@@ -5,11 +5,12 @@ type AllowedColumns = Pick<Windmill, "id" | "brand" | "model" | "installedCapaci
 export interface WindmillColumn {
   key: keyof AllowedColumns;
   label: string;
+  type: "text" | "number";
 }
 
 export const WINDMILL_COLUMNS: WindmillColumn[] = [
-  { key: "id", label: "ID" },
-  { key: "model", label: "Model" },
-  { key: "brand", label: "Brand" },
-  { key: "installedCapacityMw", label: "Installed Capacity (MW)" },
+  { key: "id", label: "ID", type: "number" },
+  { key: "model", label: "Model", type: "text" },
+  { key: "brand", label: "Brand", type: "text" },
+  { key: "installedCapacityMw", label: "Installed Capacity (MW)", type: "number" },
 ];

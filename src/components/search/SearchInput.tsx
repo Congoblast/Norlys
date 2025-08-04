@@ -7,16 +7,8 @@ interface Props {
 }
 
 const SearchInput: React.FC<Props> = ({ value, onChange, placeholder }) => {
-  return (
-    <InputWrapper>
-      <Input type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />
-    </InputWrapper>
-  );
+  return <Input type="text" value={value} onChange={(e) => onChange(e.target.value)} placeholder={placeholder} />;
 };
-
-const InputWrapper = styled.div`
-  margin-bottom: 16px;
-`;
 
 const Input = styled.input`
   padding: 8px 12px;

@@ -8,6 +8,7 @@ import SearchBar from "../search/SearchBar";
 import { sortListByKey } from "../../utils/SortListByKey";
 import { usePaginationContext } from "../../providers/PaginationProvider";
 import { WINDMILL_COLUMNS } from "./WindmillColumns";
+import styled from "styled-components";
 
 const WindMillList: React.FC = () => {
   const { windmills } = useWindmillContext();
@@ -20,9 +21,10 @@ const WindMillList: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <SearchBar items={windmills} searchField="model" onFilteredResults={handleFilteredResults} />
-
+    <>
+      <SearchBarContainer>
+        <SearchBar items={windmills} searchField="model" onFilteredResults={handleFilteredResults} />
+      </SearchBarContainer>
       <ContentTable
         columns={WINDMILL_COLUMNS}
         items={shownItems}
@@ -30,8 +32,13 @@ const WindMillList: React.FC = () => {
       />
 
       <Pagination items={filteredWindmills as []} />
-    </div>
+    </>
   );
 };
 
+const SearchBarContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 16px;
+`;
 export default WindMillList;

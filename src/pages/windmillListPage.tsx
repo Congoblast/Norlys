@@ -7,9 +7,8 @@ const ITEMS_PER_PAGE = 10;
 export const WindMillPage = () => {
   return (
     <WindmillProvider>
-      <div>Windmill List page:</div>
       <PaginationProvider itemsPerPage={ITEMS_PER_PAGE}>
-        <WindMillList></WindMillList>
+        <WindMillList />
       </PaginationProvider>
     </WindmillProvider>
   );
