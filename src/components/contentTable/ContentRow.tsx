@@ -6,10 +6,9 @@ import AccordionContent from "../accordion/accordionContent/AccordionContent";
 interface Props<T> {
   items: T[];
   columns: Array<{ key: keyof T; label: string }>;
-  children: React.ReactNode;
 }
 
-function ContentRow<T>({ items, columns, children }: Props<T>) {
+function ContentRow<T>({ items, columns }: Props<T>) {
   return (
     <>
       {items.map((item, index) => (
@@ -22,7 +21,7 @@ function ContentRow<T>({ items, columns, children }: Props<T>) {
             </HeaderRow>
           </AccordionHeader>
           <AccordionContent>
-            <div>Empty! sss</div>
+            <div>Empty!</div>
           </AccordionContent>
         </Accordion>
       ))}

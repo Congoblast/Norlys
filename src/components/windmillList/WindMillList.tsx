@@ -4,10 +4,7 @@ import type { Windmill } from "../../services/windmill-types";
 import Pagination from "../pagination/pagination";
 import ContentTable from "../contentTable/ContentTable";
 import SearchInput from "../search/SearchInput";
-import AccordionHeader from "../accordion/accordionHeader/AccordionHeader";
-import AccordionContent from "../accordion/accordionContent/AccordionContent";
-import Accordion from "../accordion/Accordion";
-import ContentRow from "../contentTable/ContentRow";
+import WindMillListItem from "./WindMillListItem";
 
 export const columns: Array<{ key: keyof Windmill; label: string }> = [
   { key: "id", label: "ID" },
@@ -42,23 +39,15 @@ const WindMillList: React.FC = () => {
   return (
     <div>
       <SearchInput value={searchQuery} onChange={handleSearch} placeholder="Search by model..." />
-      {/* <ContentTable columns={columns} currentItems={currentItems}>
-        <Accordion>
-          <AccordionContent>child</AccordionContent>
-        </Accordion>
-      </ContentTable> */}
+      <ContentTable<Windmill>
+        columns={columns}
+        items={currentItems}
+        renderRow={(windmill) => <WindMillListItem windmill={windmill} columns={columns} />}
+      />
 
-      <Accordion>
-        <AccordionHeader>
-          <p> data</p>
-        </AccordionHeader>
-        <AccordionContent>
-          <p>child</p>
-        </AccordionContent>
-      </Accordion>
       <Pagination
         currentPage={currentPage}
-        totalItems={windmills.length}
+        totalItems={filteredWindmills.length}
         itemsPerPage={ITEMS_PER_PAGE}
         onPageChange={handlePageChange}
       />

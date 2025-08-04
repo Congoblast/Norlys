@@ -1,23 +1,21 @@
 import styled from "styled-components";
-import ContentRow from "./ContentRow";
 import ContentTableHeader from "./ContentTableHeader";
 
 interface Props<T> {
   columns: Array<{ key: keyof T; label: string }>;
-  currentItems: T[];
-  children?: React.ReactNode;
+  items: T[];
+  renderRow: (item: T) => React.ReactNode;
 }
 
-function ContentTable<T>(props: Props<T>) {
-  const { columns, currentItems, children } = props;
-
-  console.log(currentItems, "items");
+function ContentTable<T>({ columns, items, renderRow }: Props<T>) {
   return (
     <TableContainer>
-      <ContentTableHeader columns={columns} />
-      <ContentRow items={currentItems} columns={columns}>
-        {children}
-      </ContentRow>
+      <ContentTableHeader<T> columns={columns} />
+      <TableBody>
+        {items.map((item, index) => (
+          <div key={index}>{renderRow(item)}</div>
+        ))}
+      </TableBody>
     </TableContainer>
   );
 }
@@ -27,7 +25,9 @@ const TableContainer = styled.div`
   border-radius: 4px;
   overflow: hidden;
 `;
-`
 
+const TableBody = styled.div`
+  background-color: white;
 `;
+
 export default ContentTable;
