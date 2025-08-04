@@ -22,11 +22,12 @@ const AccordionHeader: React.FC<Props> = (props) => {
   const { isExpanded, setIsExpanded } = context;
 
   const onToggleAccordion = () => {
+    console.log("running toggle");
     setIsExpanded(!isExpanded);
   };
 
   return (
-    <Root onClick={onToggleAccordion}>
+    <Root onClick={onToggleAccordion} $isExpanded={isExpanded}>
       <HeaderContent>{children}</HeaderContent>
       <ChevronWrapper>
         <ChevronIcon $isExpanded={isExpanded} />
@@ -35,16 +36,25 @@ const AccordionHeader: React.FC<Props> = (props) => {
   );
 };
 
-const Root = styled.div`
+const Root = styled.div<{ $isExpanded: boolean }>`
   display: flex;
   align-items: center;
   width: 100%;
-  border-bottom: 1px solid #e0e0e0;
   background-color: white;
 
   &:hover {
-    background-color: #f5f5f5;
+    ${({ $isExpanded }) =>
+      !$isExpanded &&
+      css`
+        background-color: #f5f5f5;
+      `}
   }
+
+  ${({ $isExpanded }) =>
+    $isExpanded &&
+    css`
+      background-color: #cccccc;
+    `}
 `;
 
 const ChevronWrapper = styled.div`

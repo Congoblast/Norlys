@@ -21,7 +21,6 @@ function ContentTable<T>({ columns, items, renderRow }: Props<T>) {
 }
 
 const TableContainer = styled.div`
-  border: 1px solid #e0e0e0;
   border-radius: 4px;
   overflow: hidden;
 `;

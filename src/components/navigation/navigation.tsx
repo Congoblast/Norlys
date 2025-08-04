@@ -10,7 +10,7 @@ const Navigation: React.FC = () => {
 
 const Root = styled.div`
   display: flex;
-  background-color: #3c59ec;
+  background-color: #ba0c2f;
   justify-content: center;
 `;
 

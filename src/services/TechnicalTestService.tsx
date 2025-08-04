@@ -15,3 +15,45 @@ export const fetchWindmillList = async () => {
     throw error;
   }
 };
+
+export const DeleteWindMill = async (id: number) => {
+  const url = `/api/asset/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to delete windmill with id ${id}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Windmill service failed to delete windmill:", error);
+    throw error;
+  }
+};
+
+export const EditWindMill = async (id: number, data: Partial<Windmill>) => {
+  const url = `/api/asset/${id}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to edit windmill with id ${id}`);
+    }
+
+    return true;
+  } catch (error) {
+    console.error("Windmill service failed to edit windmill:", error);
+    throw error;
+  }
+};
