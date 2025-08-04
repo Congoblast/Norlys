@@ -8,6 +8,8 @@ interface Props {
   windmill: Windmill;
   columns: Array<{ key: keyof Windmill; label: string }>;
 }
+
+//DEPRECATED
 const WindMillListItem: React.FC<Props> = (props) => {
   const { windmill, columns } = props;
 

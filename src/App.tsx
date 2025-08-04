@@ -1,7 +1,6 @@
 import "./App.css";
 import Navigation from "./components/navigation/navigation";
 import { WindMillPage } from "./pages/windmillListPage";
-import { WindmillProvider } from "./providers/WindmillProvider";
 
 function App() {
   return (

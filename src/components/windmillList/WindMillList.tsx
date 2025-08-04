@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import { useWindmillContext } from "../../providers/WindmillProvider";
 import type { Windmill } from "../../services/windmill-types";
-import WindMillListItem from "./WindMillListItem/WindMillListItem";
-import styled from "styled-components";
-import SearchInput from "../search/SearchInput";
 import Pagination from "../pagination/pagination";
-import ContentTableHeader from "../contentTable/ContentTableHeader";
-import ContentTable from "../contentTable/ContentRow";
+import ContentTable from "../contentTable/ContentTable";
+import SearchInput from "../search/SearchInput";
+import AccordionHeader from "../accordion/accordionHeader/AccordionHeader";
+import AccordionContent from "../accordion/accordionContent/AccordionContent";
+import Accordion from "../accordion/Accordion";
 import ContentRow from "../contentTable/ContentRow";
 
 export const columns: Array<{ key: keyof Windmill; label: string }> = [
@@ -15,7 +15,7 @@ export const columns: Array<{ key: keyof Windmill; label: string }> = [
   { key: "model", label: "Model" },
 ];
 
-const ITEMS_PER_PAGE = 10;
+const ITEMS_PER_PAGE = 9;
 
 const WindMillList: React.FC = () => {
   const { windmills } = useWindmillContext();
@@ -42,21 +42,20 @@ const WindMillList: React.FC = () => {
   return (
     <div>
       <SearchInput value={searchQuery} onChange={handleSearch} placeholder="Search by model..." />
+      {/* <ContentTable columns={columns} currentItems={currentItems}>
+        <Accordion>
+          <AccordionContent>child</AccordionContent>
+        </Accordion>
+      </ContentTable> */}
 
-      <TableContainer>
-        <ContentTableHeader columns={columns} />
-        <ContentRow items={currentItems}>
-          {/* {currentItems.map((windmill) => (
-            <WindMillListItem key={windmill.id} windmill={windmill} columns={columns} />
-          ))} */}
-          <WindMillListItem windmill={currentItems} columns={[]} />
-        </ContentRow>
-        {/* <TableBody>
-          {currentItems.map((windmill, index) => (
-            <WindMillListItem key={windmill.id ?? index} windmill={windmill} columns={columns} />
-          ))}
-        </TableBody> */}
-      </TableContainer>
+      <Accordion>
+        <AccordionHeader>
+          <p> data</p>
+        </AccordionHeader>
+        <AccordionContent>
+          <p>child</p>
+        </AccordionContent>
+      </Accordion>
       <Pagination
         currentPage={currentPage}
         totalItems={windmills.length}
@@ -66,28 +65,5 @@ const WindMillList: React.FC = () => {
     </div>
   );
 };
-
-const TableContainer = styled.div`
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  overflow: hidden;
-`;
-
-const TableHeader = styled.div`
-  display: flex;
-  background-color: #f5f5f5;
-  border-bottom: 1px solid #e0e0e0;
-`;
-
-const HeaderCell = styled.div`
-  flex: 1;
-  padding: 12px;
-  font-weight: bold;
-  text-align: left;
-`;
-
-const TableBody = styled.div`
-  background-color: white;
-`;
 
 export default WindMillList;

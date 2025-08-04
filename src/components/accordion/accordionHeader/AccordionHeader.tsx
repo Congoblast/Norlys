@@ -7,7 +7,7 @@ interface Props {
   /**
    * The content to be rendered inside the header of the accordions
    */
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 /**

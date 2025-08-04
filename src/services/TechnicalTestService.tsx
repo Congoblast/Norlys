@@ -9,7 +9,6 @@ export const fetchWindmillList = async () => {
     const response = await fetch(url);
     const result: Windmill[] = await response.json();
 
-    console.log("Windmill list fetched successfully:", result);
     return result;
   } catch (error) {
     console.error("Windmill service failed to fetch windmill list:", error);

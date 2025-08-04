@@ -1,35 +1,43 @@
-import type { ReactNode } from "react";
 import styled from "styled-components";
+import Accordion from "../accordion/Accordion";
+import AccordionHeader from "../accordion/accordionHeader/AccordionHeader";
+import AccordionContent from "../accordion/accordionContent/AccordionContent";
 
-interface Props {
-  /**
-   * Contains the children which is the content to be rendered inside the header
-   */
-  items: any[];
-  children?: ReactNode;
+interface Props<T> {
+  items: T[];
+  columns: Array<{ key: keyof T; label: string }>;
+  children: React.ReactNode;
 }
 
-const ContentRow: React.FC<Props> = (props) => {
-  const { items, children } = props;
-
-  console.log(items, "items");
+function ContentRow<T>({ items, columns, children }: Props<T>) {
   return (
-    <TableBody>
-      {items.map((item) => (
-        <Cell key={item.key}>{children}</Cell>
+    <>
+      {items.map((item, index) => (
+        <Accordion key={index} isDefaultExpanded={false}>
+          <AccordionHeader>
+            <HeaderRow>
+              {columns.map((column, index) => (
+                <Cell key={index}>{String(item[column.key])}</Cell>
+              ))}
+            </HeaderRow>
+          </AccordionHeader>
+          <AccordionContent>
+            <div>Empty! sss</div>
+          </AccordionContent>
+        </Accordion>
       ))}
-    </TableBody>
+    </>
   );
-};
-
-const TableBody = styled.div`
-  background-color: white;
+}
+const HeaderRow = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
 `;
 
 const Cell = styled.div`
   flex: 1;
   padding: 12px;
-  font-weight: bold;
   text-align: left;
 `;
 

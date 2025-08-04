@@ -1,23 +1,18 @@
 import styled from "styled-components";
 
-interface Props {
-  /**
-   * Contains the children which is the content to be rendered inside the header
-   */
-  columns: { key: string; label: string }[];
+interface Props<T> {
+  columns: Array<{ key: keyof T; label: string }>;
 }
 
-const ContentTableHeader: React.FC<Props> = (props) => {
-  const { columns } = props;
-
+function ContentTableHeader<T>({ columns }: Props<T>) {
   return (
     <Root>
       {columns.map((column) => (
-        <Cell key={column.key}>{column.label}</Cell>
+        <Cell key={String(column.key)}>{column.label}</Cell>
       ))}
     </Root>
   );
-};
+}
 
 const Root = styled.div`
   display: flex;
