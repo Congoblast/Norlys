@@ -3,28 +3,16 @@ import type { Windmill } from "../../services/windmill-types";
 import Accordion from "../accordion/Accordion";
 import AccordionHeader from "../accordion/accordionHeader/AccordionHeader";
 import AccordionContent from "../accordion/accordionContent/AccordionContent";
-import { DeleteWindMill } from "../../services/TechnicalTestService";
-import WindmillItemMangement from "./windmillItemManagement/WindMillItemManagement";
+import WindmillItemManagement from "./windmillItemManagement/WindmillItemManagement";
 
 interface Props {
   windmill: Windmill;
   columns: Array<{ key: keyof Windmill; label: string }>;
-  onListChange: (id: number) => void;
 }
 
 const WindMillListItem: React.FC<Props> = (props) => {
-  const { windmill, columns, onListChange } = props;
+  const { windmill, columns } = props;
   const { brand, id, model, installedCapacityMw } = windmill;
-
-  const HandleDeleteWindMill = async (id: number) => {
-    try {
-      await DeleteWindMill(id);
-      onListChange(id);
-      console.log("Windmill deleted successfully");
-    } catch (error) {
-      console.error("Error deleting windmill:", error);
-    }
-  };
 
   return (
     <Accordion key={id} isDefaultExpanded={false}>
@@ -36,19 +24,7 @@ const WindMillListItem: React.FC<Props> = (props) => {
         </HeaderRow>
       </AccordionHeader>
       <AccordionContent>
-        <WindmillItemMangement
-          model={model}
-          brand={brand}
-          installedCapacityMW={installedCapacityMw}
-          id={id}
-          onListChange={onListChange}
-        />
-
-        <div>
-          {/* <p>Details for {model}</p> */}
-
-          {/* <Button onClick={() => HandleDeleteWindMill(id)}> Delete btn</Button> */}
-        </div>
+        <WindmillItemManagement model={model} brand={brand} installedCapacityMW={installedCapacityMw} id={id} />
       </AccordionContent>
     </Accordion>
   );

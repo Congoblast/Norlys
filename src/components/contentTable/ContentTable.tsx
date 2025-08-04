@@ -1,16 +1,18 @@
 import styled from "styled-components";
 import ContentTableHeader from "./ContentTableHeader";
+import type { BaseTableProps } from "./ContentTableTypes";
 
-interface Props<T> {
-  columns: Array<{ key: keyof T; label: string }>;
-  items: T[];
-  renderRow: (item: T) => React.ReactNode;
+interface Props<TItem> extends BaseTableProps {
+  items: TItem[];
+  renderRow: (item: TItem) => React.ReactNode;
 }
 
-function ContentTable<T>({ columns, items, renderRow }: Props<T>) {
+const ContentTable = <TItem,>(props: Props<TItem>) => {
+  const { columns, items, renderRow } = props;
+
   return (
     <TableContainer>
-      <ContentTableHeader<T> columns={columns} />
+      <ContentTableHeader columns={columns} />
       <TableBody>
         {items.map((item, index) => (
           <div key={index}>{renderRow(item)}</div>
@@ -18,7 +20,7 @@ function ContentTable<T>({ columns, items, renderRow }: Props<T>) {
       </TableBody>
     </TableContainer>
   );
-}
+};
 
 const TableContainer = styled.div`
   border-radius: 4px;

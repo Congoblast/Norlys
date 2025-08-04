@@ -16,9 +16,9 @@ export const fetchWindmillList = async () => {
   }
 };
 
-export const DeleteWindMill = async (id: number) => {
+export const deleteWindmill = async (id: number) => {
   const url = `/api/asset/${id}`;
-
+  console.log("Deleting windmill with ID:", id);
   try {
     const response = await fetch(url, {
       method: "DELETE",
@@ -35,7 +35,7 @@ export const DeleteWindMill = async (id: number) => {
   }
 };
 
-export const EditWindMill = async (id: number, data: Partial<Windmill>) => {
+export const updateWindMill = async (id: number, data: Partial<Windmill>) => {
   const url = `/api/asset/${id}`;
 
   try {

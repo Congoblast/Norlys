@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { EditWindMill } from "../../../services/TechnicalTestService";
 import { useState } from "react";
 import type { Windmill } from "../../../services/windmill-types";
+import { useWindmillContext } from "../../../providers/WindmillProvider";
 
 interface Props {
   brand: string;
   model: string;
   installedCapacityMW: number;
   id: number;
-  onListChange: (id: number) => void;
 }
 
-const WindmillItemMangement: React.FC<Props> = (props) => {
-  const { brand, model, installedCapacityMW, id, onListChange } = props;
+const WindmillItemManagement: React.FC<Props> = (props) => {
+  const { brand, model, installedCapacityMW, id } = props;
+  const { handleDeleteWindmill, handleUpdateWindmill } = useWindmillContext();
 
   const [formData, setFormData] = useState<Windmill>({
     id: id,
@@ -21,21 +21,20 @@ const WindmillItemMangement: React.FC<Props> = (props) => {
     installedCapacityMw: installedCapacityMW,
   });
 
+  const handleDelete = () => {
+    const confirmed = window.confirm(
+      `Are you sure you want to delete windmill ${brand} ${model} with ID (ID: ${id})? this action cannot be undone.`,
+    );
+    if (confirmed) {
+      handleDeleteWindmill(id);
+    }
+  };
+
   const handleInputChange = (field: keyof Windmill, value: {}) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
-  };
-
-  const handleUpdateWindmill = async () => {
-    try {
-      await EditWindMill(id, formData);
-      onListChange(id);
-      console.log(`Updated windmill with ID: ${id}`);
-    } catch (error) {
-      console.error("Error updating windmill:", error);
-    }
   };
 
   const fields: Array<{ key: keyof Windmill; label: string; type: "text" | "number" }> = [
@@ -62,11 +61,12 @@ const WindmillItemMangement: React.FC<Props> = (props) => {
             </Row>
           ))}
         </ManagementContainer>
-        <Button color="#076f40" onClick={handleUpdateWindmill}>
-          Update Windmill{" "}
+
+        <Button color="#076f40" onClick={() => handleUpdateWindmill(id, formData)}>
+          Update Windmill
         </Button>
-        <Button color="#ba0c2f" onClick={handleUpdateWindmill}>
-          DELETE Windmill{" "}
+        <Button color="#ba0c2f" onClick={handleDelete}>
+          DELETE {brand} {model} ID: {id}
         </Button>
       </Root>
     </>
@@ -131,4 +131,4 @@ const Row = styled.div`
   gap: 4px;
 `;
 
-export default WindmillItemMangement;
+export default WindmillItemManagement;

@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react";
 import SearchInput from "./SearchInput";
 
-interface Props<T> {
-  items: T[];
-  searchField: keyof T;
-  onFilteredResults: (items: T[]) => void;
+interface Props<TItem> {
+  items: TItem[];
+  searchField: keyof TItem;
+  onFilteredResults: (items: TItem[]) => void;
 }
 
-function SearchBar<T>({ items, searchField, onFilteredResults }: Props<T>) {
+function SearchBar<TItem>({ items, searchField, onFilteredResults }: Props<TItem>) {
   const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {

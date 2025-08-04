@@ -1,24 +1,24 @@
 import styled from "styled-components";
+import { usePaginationContext } from "../../providers/PaginationProvider";
 
 interface Props {
-  currentPage: number;
-  totalItems: number;
-  itemsPerPage: number;
-  onPageChange: (page: number) => void;
+  items: [];
 }
 
-const Pagination: React.FC<Props> = ({ currentPage, totalItems, itemsPerPage, onPageChange }) => {
-  const totalPages = Math.ceil(totalItems / itemsPerPage);
+const Pagination: React.FC<Props> = ({ items }) => {
+  const { currentPage, itemsPerPage, handlePageChange } = usePaginationContext();
+
+  const totalPages = Math.ceil(items.length / itemsPerPage);
 
   return (
     <Container>
-      <Button onClick={() => onPageChange(currentPage - 1)} disabled={currentPage === 1}>
+      <Button onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}>
         Previous
       </Button>
       <PageInfo>
         Page {currentPage} of {totalPages}
       </PageInfo>
-      <Button onClick={() => onPageChange(currentPage + 1)} disabled={currentPage === totalPages}>
+      <Button onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}>
         Next
       </Button>
     </Container>

@@ -1,10 +1,11 @@
 import styled from "styled-components";
+import type { BaseTableProps } from "./ContentTableTypes";
 
-interface Props<T> {
-  columns: Array<{ key: keyof T; label: string }>;
-}
+interface Props extends BaseTableProps {}
 
-function ContentTableHeader<T>({ columns }: Props<T>) {
+const ContentTableHeader: React.FC<Props> = (props) => {
+  const { columns } = props;
+
   return (
     <Root>
       {columns.map((column) => (
@@ -12,7 +13,7 @@ function ContentTableHeader<T>({ columns }: Props<T>) {
       ))}
     </Root>
   );
-}
+};
 
 const Root = styled.div`
   display: flex;

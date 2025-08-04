@@ -1,6 +1,6 @@
 import React, { createContext, useEffect, useState, type ReactNode } from "react";
 import type { Windmill } from "../services/windmill-types";
-import { fetchWindmillList } from "../services/TechnicalTestService";
+import { fetchWindmillList, deleteWindmill, updateWindMill } from "../services/TechnicalTestService";
 
 interface WindmillProviderProps {
   children: ReactNode;
@@ -16,7 +16,11 @@ interface WindMillContextType {
    */
   loading: boolean;
 
-  updateWindmills: (updatedWindmills: Windmill[]) => void;
+  // updateWindmills: (updatedWindmills: Windmill[]) => void;
+
+  handleUpdateWindmill: (id: number, data: Partial<Windmill>) => Promise<void>;
+
+  handleDeleteWindmill: (id: number) => void;
 }
 
 const WindMillContext = createContext<WindMillContextType | undefined>(undefined);
@@ -24,25 +28,6 @@ const WindMillContext = createContext<WindMillContextType | undefined>(undefined
 export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) => {
   const [windmills, setWindmills] = useState<Windmill[]>([]);
   const [loading, setLoading] = useState(true);
-
-  const updateWindmills = async (updatedWindmills: Windmill[]) => {
-    try {
-      setLoading(true);
-      // Update local state immediately for UI responsiveness
-      setWindmills(updatedWindmills);
-
-      // Optionally: Fetch fresh data from server to ensure sync
-      const freshData = await fetchWindmillList();
-      setWindmills(freshData);
-    } catch (error) {
-      console.error("Error updating windmills:", error);
-      // Optionally: Revert to previous state if update fails
-      const freshData = await fetchWindmillList();
-      setWindmills(freshData);
-    } finally {
-      setLoading(false);
-    }
-  };
 
   useEffect(() => {
     const fetchWindmills = async () => {
@@ -59,10 +44,36 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
     fetchWindmills();
   }, []);
 
+  const handleUpdateWindmill = async (id: number, data: Partial<Windmill>) => {
+    try {
+      setLoading(true);
+      await updateWindMill(id, data);
+      setWindmills((prev) => prev.map((windmill) => (windmill.id === id ? { ...windmill, ...data } : windmill)));
+      console.log(`Updated windmill with ID: ${id}`);
+    } catch (error) {
+      console.error("Error updating windmill:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleDeleteWindmill = async (id: number) => {
+    try {
+      setLoading(true);
+      deleteWindmill(id);
+      setWindmills((prev) => prev.filter((windmill) => windmill.id !== id));
+    } catch (error) {
+      console.error(`Error deleting windmill with ID: ${id}, error:`, error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const contextValue: WindMillContextType = {
     windmills,
     loading,
-    updateWindmills,
+    handleUpdateWindmill,
+    handleDeleteWindmill,
   };
 
   return <WindMillContext.Provider value={contextValue}>{children}</WindMillContext.Provider>;
