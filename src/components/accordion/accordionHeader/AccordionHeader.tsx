@@ -14,7 +14,7 @@ interface Props {
  * The accordion header is responsible for rendering the content in the accordion header, and the functionality of being clickable
  * to be able to toggle the content.
  */
-const AccordionHeadline: React.FC<Props> = (props) => {
+const AccordionHeader: React.FC<Props> = (props) => {
   const { children } = props;
 
   const context = useContext(AccordionContext);
@@ -27,26 +27,31 @@ const AccordionHeadline: React.FC<Props> = (props) => {
 
   return (
     <Root onClick={onToggleAccordion}>
+      <HeaderContent>{children}</HeaderContent>
       <ChevronWrapper>
         <ChevronIcon $isExpanded={isExpanded} />
       </ChevronWrapper>
-      <HeaderContent>{children}</HeaderContent>
     </Root>
   );
 };
 
 const Root = styled.div`
   display: flex;
+  align-items: center;
+  width: 100%;
+  border-bottom: 1px solid #e0e0e0;
+  background-color: white;
 
-  border: 1px solid black;
+  &:hover {
+    background-color: #f5f5f5;
+  }
 `;
 
 const ChevronWrapper = styled.div`
+  position: absolute;
+  right: 12px;
   display: flex;
-  justify-content: center;
-
-  padding-top: 5px;
-  padding-right: 5px;
+  align-items: center;
 `;
 
 const ChevronIcon = styled(ChevronDownIcon)<{ $isExpanded: boolean }>`
@@ -62,7 +67,7 @@ const ChevronIcon = styled(ChevronDownIcon)<{ $isExpanded: boolean }>`
 const HeaderContent = styled.div`
   cursor: pointer;
   display: flex;
-  gap: 10px;
+  width: 100%;
 `;
 
-export default AccordionHeadline;
+export default AccordionHeader;

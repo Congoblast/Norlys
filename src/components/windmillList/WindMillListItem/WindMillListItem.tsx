@@ -1,33 +1,42 @@
+import styled from "styled-components";
 import type { Windmill } from "../../../services/windmill-types";
 import Accordion from "../../accordion/Accordion";
 import AccordionContent from "../../accordion/accordionContent/AccordionContent";
-import AccordionHeadline from "../../accordion/accordionHeadline/AccordionHeadLine";
+import AccordionHeader from "../../accordion/accordionHeader/AccordionHeader";
 
 interface Props {
   windmill: Windmill;
+  columns: Array<{ key: keyof Windmill; label: string }>;
 }
-
 const WindMillListItem: React.FC<Props> = (props) => {
-  const { windmill } = props;
-  const { brand, model, id, installedCapacityMW } = windmill;
+  const { windmill, columns } = props;
 
-  console.log(windmill, "mill");
   return (
     <Accordion isDefaultExpanded={false}>
-      <AccordionHeadline>
-        <div>{id}</div>
-        <div>{brand}</div>
-        <div>{model}</div>
-        <div> {installedCapacityMW}</div>
-      </AccordionHeadline>
+      <AccordionHeader>
+        <HeaderRow>
+          {columns.map((column) => (
+            <Cell key={column.key}>{windmill[column.key]}</Cell>
+          ))}
+        </HeaderRow>
+      </AccordionHeader>
       <AccordionContent>
-        <div>
-          <p>Model: {model}</p>
-          <p>Brand: {brand}</p>
-        </div>
+        <div>Empty!</div>
       </AccordionContent>
     </Accordion>
   );
 };
+
+const HeaderRow = styled.div`
+  display: flex;
+  width: 100%;
+  align-items: center;
+`;
+
+const Cell = styled.div`
+  flex: 1;
+  padding: 12px;
+  text-align: left;
+`;
 
 export default WindMillListItem;
