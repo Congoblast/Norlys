@@ -1,7 +1,7 @@
-import { useContext, type PropsWithChildren, type ReactNode } from "react";
-import { AccordionContext } from "../Accordion.context";
+import { useContext, type PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
 import { FaChevronDown as ChevronDownIcon } from "react-icons/fa";
+import { AccordionContext } from "./Accordion.context";
 
 interface Props extends PropsWithChildren {}
 
@@ -33,6 +33,7 @@ export const AccordionHeader: React.FC<Props> = (props) => {
 const Root = styled.div<{ $isExpanded: boolean }>`
   display: flex;
   align-items: center;
+
   width: 100%;
   background-color: white;
 
@@ -52,10 +53,12 @@ const Root = styled.div<{ $isExpanded: boolean }>`
 `;
 
 const ChevronWrapper = styled.div`
-  position: absolute;
-  right: 12px;
   display: flex;
   align-items: center;
+
+  position: absolute;
+
+  right: 12px;
 `;
 
 const ChevronIcon = styled(ChevronDownIcon)<{ $isExpanded: boolean }>`
@@ -69,9 +72,9 @@ const ChevronIcon = styled(ChevronDownIcon)<{ $isExpanded: boolean }>`
 `;
 
 const HeaderContent = styled.div`
-  cursor: pointer;
   display: flex;
+
+  cursor: pointer;
+
   width: 100%;
 `;
-
-export default AccordionHeader;

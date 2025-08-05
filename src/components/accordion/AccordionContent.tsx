@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { useAccordionContext } from "../Accordion.context";
 import type { PropsWithChildren } from "react";
+import { useAccordion } from "./Accordion.context";
 
 interface Props extends PropsWithChildren {}
 
@@ -10,7 +10,7 @@ interface Props extends PropsWithChildren {}
 export const AccordionContent: React.FC<Props> = (props) => {
   const { children } = props;
 
-  const { isExpanded } = useAccordionContext();
+  const { isExpanded } = useAccordion();
 
   return <AccordionItem $isExpanded={isExpanded}>{children}</AccordionItem>;
 };

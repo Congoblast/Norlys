@@ -1,3 +1,2 @@
 export * from "./ContentTable";
-export * from "./contentTableHeader/ContentTableHeader";
-export * from "./ContentTableTypes";
+export * from "./ContentTableHeader";

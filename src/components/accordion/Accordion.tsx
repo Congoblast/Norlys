@@ -1,18 +1,20 @@
-import { useState, type PropsWithChildren } from "react";
-import { AccordionContext } from "./Accordion.context";
+import { type PropsWithChildren, useState } from "react";
+import { AccordionProvider } from "./Accordion.context";
 
-interface Props extends PropsWithChildren {
-  isDefaultExpanded?: boolean;
-}
+interface Props extends PropsWithChildren {}
 
+/**
+ * Accordion that should use accordion header and accordion content, which takes children and render them
+ * inside the accordion
+ */
 export const Accordion: React.FC<Props> = (props) => {
-  const { children, isDefaultExpanded } = props;
+  const { children } = props;
 
-  const [isExpanded, setIsExpanded] = useState(isDefaultExpanded || false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
-    <div>
-      <AccordionContext.Provider value={{ isExpanded, setIsExpanded }}>{children}</AccordionContext.Provider>
-    </div>
+    <AccordionProvider isExpanded={isExpanded} setIsExpanded={setIsExpanded}>
+      {children}
+    </AccordionProvider>
   );
 };

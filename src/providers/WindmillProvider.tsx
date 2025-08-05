@@ -8,23 +8,34 @@ interface WindmillProviderProps {
 
 interface WindMillContextType {
   /**
-   * Contains windmills data in an array
+   * Contains windmills data in an array.
    */
   windmills: Windmill[];
   /**
-   * Define if the windmills data is still loading
+   * Define if the windmills data is still loading.
    */
   loading: boolean;
 
-  // updateWindmills: (updatedWindmills: Windmill[]) => void;
-
+  /**
+   * Function to handle teh update of a windmill by its ID thats provided.
+   * @param id - The ID of the windmill to update.
+   * @param data - The data form to update with.
+   */
   handleUpdateWindmill: (id: number, data: Partial<Windmill>) => Promise<void>;
 
+  /**
+   *
+   * @param id - The ID of the windmill to delete.
+   * Deletes the windmill by the given id  the list.
+   */
   handleDeleteWindmill: (id: number) => void;
 }
 
 const WindMillContext = createContext<WindMillContextType | undefined>(undefined);
 
+/**
+ * Provider for using windmills values
+ */
 export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) => {
   const [windmills, setWindmills] = useState<Windmill[]>([]);
   const [loading, setLoading] = useState(true);

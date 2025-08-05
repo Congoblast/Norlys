@@ -4,19 +4,30 @@ import WindmillItemManagement from "./windmillItemManagement/WindmillItemManagem
 import { Accordion, AccordionContent, AccordionHeader } from "../accordion";
 
 interface Props {
+  /**
+   * Windmill object containing details about the windmill.
+   */
   windmill: Windmill;
-  columns: Array<{ key: keyof Windmill; label: string }>;
+  /**
+   * Columns to be displayed in the header of the windmill list item.
+   */
+  dataColumns: Array<{ key: keyof Windmill; label: string }>;
 }
 
+/**
+ * WindMillListItem is a component whcih display a single windmill item in a list.
+ * It uses an Accordion to open and show additional details when clicked.
+ */
 const WindMillListItem: React.FC<Props> = (props) => {
-  const { windmill, columns } = props;
+  const { windmill, dataColumns } = props;
+
   const { brand, id, model, installedCapacityMw } = windmill;
 
   return (
-    <Accordion key={id} isDefaultExpanded={false}>
+    <Accordion key={id}>
       <AccordionHeader>
         <HeaderRow>
-          {columns.map((column) => (
+          {dataColumns.map((column) => (
             <Cell key={column.key}>{windmill[column.key]}</Cell>
           ))}
         </HeaderRow>
@@ -29,13 +40,16 @@ const WindMillListItem: React.FC<Props> = (props) => {
 };
 const HeaderRow = styled.div`
   display: flex;
-  width: 100%;
   align-items: center;
+
+  width: 100%;
 `;
 
 const Cell = styled.div`
   flex: 1;
+
   padding: 12px;
+
   text-align: left;
 `;
 

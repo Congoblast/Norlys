@@ -1,15 +1,13 @@
 import { WindmillProvider } from "../providers/WindmillProvider";
 import WindMillList from "../components/windmillList/WindMillList";
-import { PaginationProvider } from "../providers/PaginationProvider";
 
-const ITEMS_PER_PAGE = 10;
-
+/**
+ * Windmillpage to display list of windmills.
+ */
 export const WindMillPage = () => {
   return (
     <WindmillProvider>
-      <PaginationProvider itemsPerPage={ITEMS_PER_PAGE}>
-        <WindMillList />
-      </PaginationProvider>
+      <WindMillList />
     </WindmillProvider>
   );
 };

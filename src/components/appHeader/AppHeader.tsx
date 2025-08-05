@@ -1,15 +1,30 @@
 import styled from "styled-components";
 
+/**
+ * The header of the application, displayed at the top of the page.
+ */
 export const AppHeader: React.FC = () => {
   return (
     <Root>
-      <p>Norlys Application </p>
+      <Title>Norlys Energy</Title>
     </Root>
   );
 };
 
 const Root = styled.div`
-  display: flex;
-  background-color: #ba0c2f;
-  justify-content: center;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+
+  padding: 0.5rem 1rem;
+
+  background: #ba0c2f;
+  color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+`;
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 `;
