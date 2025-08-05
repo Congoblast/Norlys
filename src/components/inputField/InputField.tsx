@@ -31,9 +31,9 @@ export const InputField: React.FC<Props> = (props) => {
   };
 
   return (
-    <Root key={key}>
+    <Root>
       <Label key={key}>{label}</Label>
-      <Row key={key}>
+      <Row>
         <StyledInput name={key} value={values} type={type} onChange={handleInputChange} />
       </Row>
     </Root>

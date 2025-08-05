@@ -10,20 +10,13 @@ import styled from "styled-components";
 import { WINDMILL_COLUMNS } from "./WindmillColumns";
 
 const ITEMS_PER_PAGE = 10;
-
 /**
  * WindmillList component displays a paginated list of windmills.
  */
 export const WindmillList: React.FC = () => {
   const { windmills, loading } = useWindmillContext();
 
-  if (windmills.length === 0 && loading) {
-    return <LoadingState>Loading list...</LoadingState>;
-  }
-
-  if (windmills.length === 0 && !loading) {
-    return <LoadingState>Error encountered when trying to retrieve Database. </LoadingState>;
-  }
+  if (loading && windmills.length === 0) return <LoadingState>Internal error</LoadingState>;
 
   const [filteredWindmills, setFilteredWindmills] = useState(windmills);
 
@@ -35,6 +28,7 @@ export const WindmillList: React.FC = () => {
 
   const handleFilteredResults = useCallback((results: Windmill[]) => {
     setFilteredWindmills(results);
+    setCurrentPage(1);
   }, []);
 
   const handlePageChange = useCallback((page: number) => {
@@ -51,7 +45,12 @@ export const WindmillList: React.FC = () => {
         items={shownItems}
         renderRow={(windmill) => <WindmillListItem windmill={windmill as Windmill} dataColumns={WINDMILL_COLUMNS} />}
       />
-      <Pagination itemsPerPage={ITEMS_PER_PAGE} items={filteredWindmills as []} onPageChange={handlePageChange} />
+      <Pagination
+        itemsPerPage={ITEMS_PER_PAGE}
+        items={filteredWindmills as []}
+        onPageChange={handlePageChange}
+        currentPage={currentPage}
+      />
     </Root>
   );
 };
@@ -68,10 +67,12 @@ const SearchBarContainer = styled.div`
 `;
 
 const LoadingState = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   width: 100%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
   margin-top: 20vh;
 `;

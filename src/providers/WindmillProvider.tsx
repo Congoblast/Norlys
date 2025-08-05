@@ -15,14 +15,12 @@ interface WindMillContextType {
    * Define if the windmills data is still loading.
    */
   loading: boolean;
-
   /**
    * Function to handle teh update of a windmill by its ID thats provided.
    * @param id - The ID of the windmill to update.
    * @param data - The data form to update with.
    */
   handleUpdateWindmill: (id: number, data: Partial<Windmill>) => Promise<void>;
-
   /**
    *
    * @param id - The ID of the windmill to delete.
@@ -38,7 +36,7 @@ const WindMillContext = createContext<WindMillContextType | undefined>(undefined
  */
 export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) => {
   const [windmills, setWindmills] = useState<Windmill[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchWindmills = async () => {

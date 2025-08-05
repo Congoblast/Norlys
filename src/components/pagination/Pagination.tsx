@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useState } from "react";
 
 interface Props {
   /**
@@ -14,21 +13,22 @@ interface Props {
    * Callback to handle page change.
    */
   onPageChange: (currentPage: number) => void;
+  /**
+   * Current page number.
+   */
+  currentPage: number;
 }
 
 /**
  * Pagination component for displaying a list of items for pagination.
  */
 export const Pagination: React.FC<Props> = (props) => {
-  const { items, itemsPerPage, onPageChange } = props;
-
-  const [currentPage, setCurrentPage] = useState(1);
+  const { items, itemsPerPage, onPageChange, currentPage } = props;
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {
     if (page >= 1 && page <= totalPages) {
-      setCurrentPage(page);
       onPageChange(page);
     }
   };
