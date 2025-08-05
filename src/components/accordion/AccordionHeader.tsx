@@ -1,6 +1,6 @@
 import { useContext, type PropsWithChildren } from "react";
 import styled, { css } from "styled-components";
-import { FaChevronDown as ChevronDownIcon } from "react-icons/fa";
+import { FaChevronRight as ChevronDownIcon } from "react-icons/fa";
 import { AccordionContext } from "./Accordion.context";
 
 interface Props extends PropsWithChildren {}
@@ -67,7 +67,7 @@ const ChevronIcon = styled(ChevronDownIcon)<{ $isExpanded: boolean }>`
   ${({ $isExpanded }) =>
     $isExpanded &&
     css`
-      transform: rotate(-180deg);
+      transform: rotate(90deg);
     `}
 `;
 

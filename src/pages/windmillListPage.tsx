@@ -1,5 +1,5 @@
+import { WindmillList } from "../components/windmillList";
 import { WindmillProvider } from "../providers/WindmillProvider";
-import WindMillList from "../components/windmillList/WindMillList";
 
 /**
  * Windmillpage to display list of windmills.
@@ -7,7 +7,7 @@ import WindMillList from "../components/windmillList/WindMillList";
 export const WindMillPage = () => {
   return (
     <WindmillProvider>
-      <WindMillList />
+      <WindmillList />
     </WindmillProvider>
   );
 };

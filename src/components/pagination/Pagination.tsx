@@ -23,6 +23,7 @@ export const Pagination: React.FC<Props> = (props) => {
   const { items, itemsPerPage, onPageChange } = props;
 
   const [currentPage, setCurrentPage] = useState(1);
+
   const totalPages = Math.ceil(items.length / itemsPerPage);
 
   const handlePageChange = (page: number) => {

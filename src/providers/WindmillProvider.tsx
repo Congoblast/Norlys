@@ -51,7 +51,6 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
         setLoading(false);
       }
     };
-
     fetchWindmills();
   }, []);
 

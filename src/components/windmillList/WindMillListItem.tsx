@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import type { Windmill } from "../../services/windmill-types";
-import WindmillItemManagement from "./windmillItemManagement/WindmillItemManagement";
 import { Accordion, AccordionContent, AccordionHeader } from "../accordion";
+import { WindmillItemManagement } from "./WindmillItemManagement/WindmillItemManagement";
 
 interface Props {
   /**
@@ -18,10 +18,9 @@ interface Props {
  * WindMillListItem is a component whcih display a single windmill item in a list.
  * It uses an Accordion to open and show additional details when clicked.
  */
-const WindMillListItem: React.FC<Props> = (props) => {
+export const WindmillListItem: React.FC<Props> = (props) => {
   const { windmill, dataColumns } = props;
-
-  const { brand, id, model, installedCapacityMw } = windmill;
+  const { id } = windmill;
 
   return (
     <Accordion key={id}>
@@ -33,11 +32,12 @@ const WindMillListItem: React.FC<Props> = (props) => {
         </HeaderRow>
       </AccordionHeader>
       <AccordionContent>
-        <WindmillItemManagement model={model} brand={brand} installedCapacityMW={installedCapacityMw} id={id} />
+        <WindmillItemManagement windmill={windmill} />
       </AccordionContent>
     </Accordion>
   );
 };
+
 const HeaderRow = styled.div`
   display: flex;
   align-items: center;
@@ -52,5 +52,3 @@ const Cell = styled.div`
 
   text-align: left;
 `;
-
-export default WindMillListItem;

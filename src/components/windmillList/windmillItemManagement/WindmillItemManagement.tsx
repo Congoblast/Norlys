@@ -3,23 +3,30 @@ import { useState } from "react";
 import type { Windmill } from "../../../services/windmill-types";
 import { useWindmillContext } from "../../../providers/WindmillProvider";
 import { WINDMILL_COLUMNS } from "../WindmillColumns";
+import { InputField } from "../../inputField";
+import { WindmillItemManagementButtons } from "./WindmillItemMangementButtons";
 
 interface Props {
-  brand: string;
-  model: string;
-  installedCapacityMW: number;
-  id: number;
+  /**
+   * Specific windmill object containing details about the windmill.
+   */
+  windmill: Windmill;
 }
 
-const WindmillItemManagement: React.FC<Props> = (props) => {
-  const { brand, model, installedCapacityMW, id } = props;
+/**
+ * Handles managmming of a windmill item
+ */
+export const WindmillItemManagement: React.FC<Props> = (props) => {
+  const { windmill } = props;
+  const { brand, model, installedCapacityMw, id } = windmill;
+
   const { handleDeleteWindmill, handleUpdateWindmill } = useWindmillContext();
 
   const [formData, setFormData] = useState<Windmill>({
     id: id,
     brand: brand,
     model: model,
-    installedCapacityMw: installedCapacityMW,
+    installedCapacityMw: installedCapacityMw,
   });
 
   const handleDelete = () => {
@@ -39,100 +46,38 @@ const WindmillItemManagement: React.FC<Props> = (props) => {
   };
 
   return (
-    <>
-      <Root>
-        <Title>Windmill Item Management for model: {model}</Title>
-        <ManagementContainer>
-          {WINDMILL_COLUMNS.map((field) => (
-            <Row key={field.key}>
-              <Label>{field.label}</Label>
-              <StyledInput
-                type={field.type}
-                value={formData[field.key]}
-                onChange={(e) =>
-                  handleInputChange(field.key, field.type === "number" ? Number(e.target.value) : e.target.value)
-                }
-              />
-            </Row>
-          ))}
-        </ManagementContainer>
-        <ButtonContainer>
-          <Button color="#076f40" onClick={() => handleUpdateWindmill(id, formData)}>
-            Update Windmill
-          </Button>
-          <Button width="25%" color="#ba0c2f" onClick={handleDelete}>
-            DELETE {brand} {model} ID: {id}
-          </Button>
-        </ButtonContainer>
-      </Root>
-    </>
+    <Root>
+      <Title>Management for model: {model}</Title>
+
+      {WINDMILL_COLUMNS.map((field, index) => (
+        <InputField
+          field={field}
+          values={formData[field.key]}
+          onChange={(value) => handleInputChange(field.key, value)}
+          key={index}
+        />
+      ))}
+      <WindmillItemManagementButtons
+        updateOnClick={() => handleUpdateWindmill(id, formData)}
+        deleteOnClick={handleDelete}
+      />
+    </Root>
   );
 };
-
-const Label = styled.label`
-  min-width: 150px;
-  font-weight: 500;
-`;
 
 const Root = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
   padding: 64px;
   margin: 16px;
+
   background-color: white;
   border-radius: 6px;
-  width: 75%;
+  min-width: 30%;
 `;
 
 const Title = styled.h2`
   margin: 0;
 `;
-
-const StyledInput = styled.input`
-  padding: 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 4px;
-
-  &:focus {
-    outline: none;
-    border-color: #ba0c2f;
-  }
-`;
-
-const ManagementContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-`;
-
-const Button = styled.button<{ color: string; width?: string }>`
-  font-size: 1.2rem;
-  padding: 16px 24px;
-  background-color: ${({ color }) => color};
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: ${({ width }) => width || "100%"};
-
-  &:hover {
-    background-color: ${({ color }) => color};
-    opacity: 0.9;
-  }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
-`;
-
-const Row = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-`;
-
-export default WindmillItemManagement;
