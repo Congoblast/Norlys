@@ -27,6 +27,10 @@ interface WindMillContextType {
    * Deletes the windmill by the given id  the list.
    */
   handleDeleteWindmill: (id: number) => void;
+  /**
+   * Indicates if there was an error fetching or updating the windmills data.
+   */
+  error: boolean;
 }
 
 const WindMillContext = createContext<WindMillContextType | undefined>(undefined);
@@ -37,6 +41,7 @@ const WindMillContext = createContext<WindMillContextType | undefined>(undefined
 export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) => {
   const [windmills, setWindmills] = useState<Windmill[]>([]);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const fetchWindmills = async () => {
@@ -45,6 +50,7 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
         setWindmills(windMillsData);
       } catch (error) {
         console.error("Error fetching windmills:", error);
+        setError(true);
       } finally {
         setLoading(false);
       }
@@ -59,6 +65,7 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
       setWindmills((prev) => prev.map((windmill) => (windmill.id === id ? { ...windmill, ...data } : windmill)));
     } catch (error) {
       console.error("Error updating windmill:", error);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -71,6 +78,7 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
       setWindmills((prev) => prev.filter((windmill) => windmill.id !== id));
     } catch (error) {
       console.error(`Error deleting windmill with ID: ${id}, error:`, error);
+      setError(true);
     } finally {
       setLoading(false);
     }
@@ -81,6 +89,7 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
     loading,
     handleUpdateWindmill,
     handleDeleteWindmill,
+    error,
   };
 
   return <WindMillContext.Provider value={contextValue}>{children}</WindMillContext.Provider>;

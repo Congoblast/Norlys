@@ -1,5 +1,5 @@
 import { AppHeader } from "./components/appHeader";
-import { WindMillPage } from "./pages/windmillListPage";
+import { WindMillPage } from "./pages/WindmillListPage";
 
 function App() {
   return (

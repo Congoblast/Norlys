@@ -14,9 +14,9 @@ const ITEMS_PER_PAGE = 10;
  * WindmillList component displays a paginated list of windmills.
  */
 export const WindmillList: React.FC = () => {
-  const { windmills, loading } = useWindmillContext();
+  const { windmills, error } = useWindmillContext();
 
-  if (loading && windmills.length === 0) return <LoadingState>Internal error</LoadingState>;
+  if (error) return <LoadingState>Server error has occured</LoadingState>;
 
   const [filteredWindmills, setFilteredWindmills] = useState(windmills);
 
