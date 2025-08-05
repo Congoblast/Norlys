@@ -1,9 +1,8 @@
 module.exports = {
-  parser: "@typescript-eslint/parser", // Specifies the ESLint parser
+  parser: "@typescript-eslint/parser",
   env: {
     node: true,
     commonjs: true,
-    jest: true,
   },
   extends: [
     "plugin:import/recommended",
@@ -12,11 +11,11 @@ module.exports = {
     "plugin:sonarjs/recommended",
     "plugin:unicorn/recommended",
     "prettier",
-    "plugin:prettier/recommended", // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.
+    "plugin:prettier/recommended",
   ],
   parserOptions: {
     ecmaVersion: 2018,
-    sourceType: "module", // Allows for the use of imports
+    sourceType: "module",
     project: "./tsconfig.eslint.json",
   },
   plugins: [
@@ -60,15 +59,5 @@ module.exports = {
       },
     ],
   },
-  ignorePatterns: [
-    "node_modules",
-    "dist",
-    "coverage",
-    "docs",
-    ".eslintrc.js",
-    "jest.config.js",
-    "webpack.config.js",
-    ".pnp.cjs",
-    ".pnp.loader.mjs",
-  ],
+  ignorePatterns: ["node_modules", "dist", "coverage", "docs", ".eslintrc.js", ".pnp.cjs", ".pnp.loader.mjs"],
 };

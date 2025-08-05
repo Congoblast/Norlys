@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface Props {
   /**
@@ -31,26 +31,34 @@ export const InputField: React.FC<Props> = (props) => {
   };
 
   return (
-    <Row key={key}>
+    <Root key={key}>
       <Label key={key}>{label}</Label>
       <Row key={key}>
         <StyledInput name={key} value={values} type={type} onChange={handleInputChange} />
       </Row>
-    </Row>
+    </Root>
   );
 };
 
-const Row = styled.div`
+const SharedStyles = css`
   display: flex;
   flex-direction: column;
 
   gap: 4px;
 `;
 
+const Root = styled.div`
+  ${SharedStyles}
+`;
+
 const Label = styled.div`
   min-width: 150px;
 
   font-weight: 500;
+`;
+
+const Row = styled.div`
+  ${SharedStyles}
 `;
 
 const StyledInput = styled.input`

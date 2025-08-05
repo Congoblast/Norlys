@@ -1,4 +1,3 @@
-import "./App.css";
 import { AppHeader } from "./components/appHeader";
 import { WindMillPage } from "./pages/windmillListPage";
 

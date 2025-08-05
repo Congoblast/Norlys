@@ -1,4 +1,4 @@
-import type { Windmill } from "../../services/windmill-types";
+import type { Windmill } from "../../types/windmill/WindmillTypes";
 
 type AllowedColumns = Pick<Windmill, "id" | "brand" | "model" | "installedCapacityMw">;
 
@@ -10,7 +10,7 @@ export interface WindmillColumn {
 
 export const WINDMILL_COLUMNS: WindmillColumn[] = [
   { key: "id", label: "ID", type: "number" },
-  { key: "model", label: "Model", type: "text" },
   { key: "brand", label: "Brand", type: "text" },
+  { key: "model", label: "Model", type: "text" },
   { key: "installedCapacityMw", label: "Installed Capacity (MW)", type: "number" },
 ];

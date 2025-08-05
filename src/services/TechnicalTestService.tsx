@@ -1,4 +1,4 @@
-import type { Windmill } from "./windmill-types";
+import type { Windmill } from "../types/windmill/WindmillTypes";
 
 export const localWindmillUrl = import.meta.env.VITE_WINDMILL_API_URL;
 

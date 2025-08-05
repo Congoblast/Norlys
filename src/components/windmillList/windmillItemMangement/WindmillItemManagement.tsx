@@ -4,7 +4,7 @@ import type { Windmill } from "../../../types/windmill/WindmillTypes";
 import { useWindmillContext } from "../../../providers/WindmillProvider";
 import { WINDMILL_COLUMNS } from "../WindmillColumns";
 import { InputField } from "../../inputField";
-import { WindmillItemManagementButtons } from "./WindmillItemMangementButtons";
+import { WindmillItemManagementButtons } from "../windmillItemManagement/WindmillItemMangementButtons";
 
 interface Props {
   /**
@@ -47,7 +47,7 @@ export const WindmillItemManagement: React.FC<Props> = (props) => {
 
   return (
     <Root>
-      <Title>Management for model: {model}</Title>
+      <Title>Windmill Item Management for model: {model}</Title>
 
       {WINDMILL_COLUMNS.map((field, index) => (
         <InputField
@@ -69,13 +69,11 @@ const Root = styled.div`
   display: flex;
   flex-direction: column;
   gap: 16px;
-
   padding: 64px;
   margin: 16px;
-
   background-color: white;
   border-radius: 6px;
-  min-width: 30%;
+  width: 75%;
 `;
 
 const Title = styled.h2`

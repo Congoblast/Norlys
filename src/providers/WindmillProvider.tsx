@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, type ReactNode } from "react";
-import type { Windmill } from "../services/windmill-types";
+import type { Windmill } from "../types/windmill/WindmillTypes";
 import { fetchWindmillList, deleteWindmill, updateWindMill } from "../services/TechnicalTestService";
 
 interface WindmillProviderProps {
@@ -59,7 +59,6 @@ export const WindmillProvider: React.FC<WindmillProviderProps> = ({ children }) 
       setLoading(true);
       await updateWindMill(id, data);
       setWindmills((prev) => prev.map((windmill) => (windmill.id === id ? { ...windmill, ...data } : windmill)));
-      console.log(`Updated windmill with ID: ${id}`);
     } catch (error) {
       console.error("Error updating windmill:", error);
     } finally {

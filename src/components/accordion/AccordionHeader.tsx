@@ -58,7 +58,7 @@ const ChevronWrapper = styled.div`
 
   position: absolute;
 
-  right: 12px;
+  right: 25px;
 `;
 
 const ChevronIcon = styled(ChevronDownIcon)<{ $isExpanded: boolean }>`

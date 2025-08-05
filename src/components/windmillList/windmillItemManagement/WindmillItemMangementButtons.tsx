@@ -17,16 +17,23 @@ export const WindmillItemManagementButtons: React.FC<Props> = (props) => {
   const { deleteOnClick, updateOnClick } = props;
 
   return (
-    <ButtonContainer>
+    <Root>
       <Button color="#076f40" onClick={updateOnClick}>
         Update Windmill
       </Button>
       <Button width="50%" color="#ba0c2f" onClick={deleteOnClick}>
         DELETE
       </Button>
-    </ButtonContainer>
+    </Root>
   );
 };
+
+const Root = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+`;
 
 const Button = styled.button<{ color: string; width?: string }>`
   font-size: 1.2rem;
@@ -42,11 +49,4 @@ const Button = styled.button<{ color: string; width?: string }>`
     background-color: ${({ color }) => color};
     opacity: 0.9;
   }
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 32px;
 `;

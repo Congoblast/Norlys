@@ -1,3 +1,4 @@
+import styled from "styled-components";
 import { ContentTableHeader } from "./ContentTableHeader";
 
 interface Props {
@@ -23,11 +24,16 @@ export const ContentTable: React.FC<Props> = (props) => {
   const { columns, items, renderRow } = props;
 
   return (
-    <>
+    <Root>
       <ContentTableHeader columns={columns} />
       {items.map((item, index) => (
         <div key={index}>{renderRow(item)}</div>
       ))}
-    </>
+    </Root>
   );
 };
+
+const Root = styled.div`
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+`;

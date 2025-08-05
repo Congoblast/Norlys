@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import type { Windmill } from "../../services/windmill-types";
+import type { Windmill } from "../../types/windmill/WindmillTypes";
 import { Accordion, AccordionContent, AccordionHeader } from "../accordion";
-import { WindmillItemManagement } from "./WindmillItemManagement/WindmillItemManagement";
+import { WindmillItemManagement } from "./windmillItemManagement/WindmillItemManagement";
 
 interface Props {
   /**

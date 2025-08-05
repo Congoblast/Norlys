@@ -1,6 +1,6 @@
 import { useCallback, useState } from "react";
 import { useWindmillContext } from "../../providers/WindmillProvider";
-import type { Windmill } from "../../services/windmill-types";
+import type { Windmill } from "../../types/windmill/WindmillTypes";
 import { Pagination } from "../pagination";
 import { SearchBar } from "../searchBar";
 import { sortListByKey } from "../../utils/SortListByKey";
@@ -18,11 +18,11 @@ export const WindmillList: React.FC = () => {
   const { windmills, loading } = useWindmillContext();
 
   if (windmills.length === 0 && loading) {
-    return <PreState>Loading list...</PreState>;
+    return <LoadingState>Loading list...</LoadingState>;
   }
 
   if (windmills.length === 0 && !loading) {
-    return <PreState>Error encountered when trying to retrieve Database. </PreState>;
+    return <LoadingState>Error encountered when trying to retrieve Database. </LoadingState>;
   }
 
   const [filteredWindmills, setFilteredWindmills] = useState(windmills);
@@ -41,10 +41,8 @@ export const WindmillList: React.FC = () => {
     setCurrentPage(page);
   }, []);
 
-  console.log(windmills, "Windmills in WindmillList");
-
   return (
-    <>
+    <Root>
       <SearchBarContainer>
         <SearchBar items={windmills as []} searchField="model" onFilteredResults={handleFilteredResults} />
       </SearchBarContainer>
@@ -52,11 +50,15 @@ export const WindmillList: React.FC = () => {
         columns={WINDMILL_COLUMNS}
         items={shownItems}
         renderRow={(windmill) => <WindmillListItem windmill={windmill as Windmill} dataColumns={WINDMILL_COLUMNS} />}
-      ></ContentTable>
+      />
       <Pagination itemsPerPage={ITEMS_PER_PAGE} items={filteredWindmills as []} onPageChange={handlePageChange} />
-    </>
+    </Root>
   );
 };
+
+const Root = styled.div`
+  padding: 16px;
+`;
 
 const SearchBarContainer = styled.div`
   display: flex;
@@ -65,7 +67,7 @@ const SearchBarContainer = styled.div`
   padding: 16px;
 `;
 
-const PreState = styled.div`
+const LoadingState = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
