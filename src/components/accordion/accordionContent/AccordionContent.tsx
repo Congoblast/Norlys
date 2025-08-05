@@ -1,18 +1,13 @@
 import styled, { css } from "styled-components";
-import { useAccordionContext } from "../AccordionContext";
-import type { ReactNode } from "react";
+import { useAccordionContext } from "../Accordion.context";
+import type { PropsWithChildren } from "react";
 
-interface Props {
-  /**
-   * Contains the children which is the content to be rendered inside the accordion
-   */
-  children: ReactNode;
-}
+interface Props extends PropsWithChildren {}
 
 /**
  * The accordion content to be shown inside the accordion
  */
-const AccordionContent: React.FC<Props> = (props) => {
+export const AccordionContent: React.FC<Props> = (props) => {
   const { children } = props;
 
   const { isExpanded } = useAccordionContext();
@@ -39,5 +34,3 @@ const AccordionItem = styled.div<{ $isExpanded: boolean }>`
       overflow: auto;
     `}
 `;
-
-export default AccordionContent;

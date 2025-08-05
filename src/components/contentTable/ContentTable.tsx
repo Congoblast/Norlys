@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import ContentTableHeader from "./ContentTableHeader";
-import type { BaseTableProps } from "./ContentTableTypes";
+import { ContentTableHeader } from "./contentTableHeader/ContentTableHeader";
 
-interface Props<TItem> extends BaseTableProps {
-  items: TItem[];
-  renderRow: (item: TItem) => React.ReactNode;
+interface Props {
+  columns: { key: string; label: string }[];
+  items: {}[];
+  renderRow: (item: {}) => React.ReactNode;
 }
 
-const ContentTable = <TItem,>(props: Props<TItem>) => {
+export const ContentTable: React.FC<Props> = (props) => {
   const { columns, items, renderRow } = props;
 
   return (
@@ -30,5 +30,3 @@ const TableContainer = styled.div`
 const TableBody = styled.div`
   background-color: white;
 `;
-
-export default ContentTable;

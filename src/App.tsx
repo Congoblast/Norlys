@@ -1,11 +1,11 @@
 import "./App.css";
-import TopBar from "./components/TopBar";
+import { AppHeader } from "./components/appHeader";
 import { WindMillPage } from "./pages/windmillListPage";
 
 function App() {
   return (
     <div className="app">
-      <TopBar />
+      <AppHeader />
       <WindMillPage />
     </div>
   );

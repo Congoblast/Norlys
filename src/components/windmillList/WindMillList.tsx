@@ -1,14 +1,14 @@
 import { useCallback, useState } from "react";
 import { useWindmillContext } from "../../providers/WindmillProvider";
 import type { Windmill } from "../../services/windmill-types";
-import Pagination from "../pagination/Pagination";
-import ContentTable from "../contentTable/ContentTable";
+import { Pagination } from "../pagination/Pagination";
 import WindMillListItem from "./WindMillListItem";
 import SearchBar from "../search/SearchBar";
 import { sortListByKey } from "../../utils/SortListByKey";
 import { usePaginationContext } from "../../providers/PaginationProvider";
 import { WINDMILL_COLUMNS } from "./WindmillColumns";
 import styled from "styled-components";
+import { ContentTable } from "../contentTable/ContentTable";
 
 const WindMillList: React.FC = () => {
   const { windmills } = useWindmillContext();
@@ -28,8 +28,8 @@ const WindMillList: React.FC = () => {
       <ContentTable
         columns={WINDMILL_COLUMNS}
         items={shownItems}
-        renderRow={(windmill) => <WindMillListItem windmill={windmill} columns={WINDMILL_COLUMNS} />}
-      />
+        renderRow={(windmill) => <WindMillListItem windmill={windmill as Windmill} columns={WINDMILL_COLUMNS} />}
+      ></ContentTable>
 
       <Pagination items={filteredWindmills as []} />
     </>

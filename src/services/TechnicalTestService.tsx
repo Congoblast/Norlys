@@ -18,7 +18,6 @@ export const fetchWindmillList = async () => {
 
 export const deleteWindmill = async (id: number) => {
   const url = `/api/asset/${id}`;
-  console.log("Deleting windmill with ID:", id);
   try {
     const response = await fetch(url, {
       method: "DELETE",

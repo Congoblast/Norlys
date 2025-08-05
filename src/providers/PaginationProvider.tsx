@@ -1,7 +1,6 @@
-import React, { createContext, useState, type ReactNode } from "react";
+import React, { createContext, useState } from "react";
 
-interface PaginationProviderProps {
-  children: ReactNode;
+interface PaginationProviderProps extends React.PropsWithChildren {
   itemsPerPage: number;
 }
 

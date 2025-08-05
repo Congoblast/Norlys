@@ -1,13 +1,11 @@
-import { useState, type ReactNode } from "react";
-import { AccordionContext } from "./AccordionContext";
+import { useState, type PropsWithChildren } from "react";
+import { AccordionContext } from "./Accordion.context";
 
-interface Props {
-  children: ReactNode;
-
+interface Props extends PropsWithChildren {
   isDefaultExpanded?: boolean;
 }
 
-const Accordion: React.FC<Props> = (props) => {
+export const Accordion: React.FC<Props> = (props) => {
   const { children, isDefaultExpanded } = props;
 
   const [isExpanded, setIsExpanded] = useState(isDefaultExpanded || false);
@@ -18,5 +16,3 @@ const Accordion: React.FC<Props> = (props) => {
     </div>
   );
 };
-
-export default Accordion;

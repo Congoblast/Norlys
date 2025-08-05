@@ -1,9 +1,10 @@
 import styled from "styled-components";
-import type { BaseTableProps } from "./ContentTableTypes";
 
-interface Props extends BaseTableProps {}
+interface Props {
+  columns: { key: string; label: string }[];
+}
 
-const ContentTableHeader: React.FC<Props> = (props) => {
+export const ContentTableHeader: React.FC<Props> = (props) => {
   const { columns } = props;
 
   return (
@@ -27,5 +28,3 @@ const Cell = styled.div`
   font-weight: bold;
   text-align: left;
 `;
-
-export default ContentTableHeader;

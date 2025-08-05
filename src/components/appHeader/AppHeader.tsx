@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const Navigation: React.FC = () => {
+export const AppHeader: React.FC = () => {
   return (
     <Root>
       <p>Norlys Application </p>
@@ -13,5 +13,3 @@ const Root = styled.div`
   background-color: #ba0c2f;
   justify-content: center;
 `;
-
-export default Navigation;

@@ -1,20 +1,15 @@
-import { useContext, type ReactNode } from "react";
-import { AccordionContext } from "../AccordionContext";
+import { useContext, type PropsWithChildren, type ReactNode } from "react";
+import { AccordionContext } from "../Accordion.context";
 import styled, { css } from "styled-components";
 import { FaChevronDown as ChevronDownIcon } from "react-icons/fa";
 
-interface Props {
-  /**
-   * The content to be rendered inside the header of the accordions
-   */
-  children?: ReactNode;
-}
+interface Props extends PropsWithChildren {}
 
 /**
  * The accordion header is responsible for rendering the content in the accordion header, and the functionality of being clickable
  * to be able to toggle the content.
  */
-const AccordionHeader: React.FC<Props> = (props) => {
+export const AccordionHeader: React.FC<Props> = (props) => {
   const { children } = props;
 
   const context = useContext(AccordionContext);
@@ -22,7 +17,6 @@ const AccordionHeader: React.FC<Props> = (props) => {
   const { isExpanded, setIsExpanded } = context;
 
   const onToggleAccordion = () => {
-    console.log("running toggle");
     setIsExpanded(!isExpanded);
   };
 

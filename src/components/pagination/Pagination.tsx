@@ -5,7 +5,7 @@ interface Props {
   items: [];
 }
 
-const Pagination: React.FC<Props> = ({ items }) => {
+export const Pagination: React.FC<Props> = ({ items }) => {
   const { currentPage, itemsPerPage, handlePageChange } = usePaginationContext();
 
   const totalPages = Math.ceil(items.length / itemsPerPage);
@@ -53,5 +53,3 @@ const Button = styled.button`
 const PageInfo = styled.div`
   font-size: 14px;
 `;
-
-export default Pagination;
